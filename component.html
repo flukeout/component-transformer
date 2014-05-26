@@ -1,0 +1,57 @@
+<polymer-element name="ceci-transformer" extends="ceci-element" attributes="message">
+  <ceci-definition>
+    {
+      "name": "Transformer",
+      "thumbnail": "./thumbnail.png",
+      "description": "Listens for a message and sends out what the user specifies.",
+      "broadcasts": {
+        "transformedMessage": {
+          "label": "Transformed Message",
+          "description": "Broadcasts the current count."
+        }
+      },
+      "listeners": {
+        "incomingMessage": {
+          "description": "Increment the total by the increment value",
+          "label": "Incoming Message",
+          "default" : true
+        }
+      },
+      "attributes": {
+        "message": {
+          "description": "Transform received messaeg to this.",
+          "label": "Message",
+          "editable": "Text",
+          "default" : true
+        }
+      }
+    }
+  </ceci-definition>
+  <template>
+    <link rel="stylesheet" href="component.css">
+    <div class="counter">
+      <div class="count-wrapper">
+        Transform to "<span class="count">{{message}}</span>"
+      </div>
+    </div>
+    <shadow></shadow>
+  </template>
+  <tags>starter,math</tags>
+    <script>
+      Polymer("ceci-transformer", {
+        ready: function() {
+          this.super();
+        },
+        incomingMessage : function(){
+          this.broadcast("transformedMessage", this.message);
+        },
+        message: 'Sprocket',
+        unitChanged: function() {
+          this.updateUnit();
+        },
+        resetCount: function() {
+          this.value = 0;
+        }
+      });
+    </script>
+</polymer-element>
